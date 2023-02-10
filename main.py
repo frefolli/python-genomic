@@ -30,3 +30,5 @@ if __name__ == "__main__":
     print(c.cigarstring)
     print(c.query_sequence.upper())
     print(reference[c.reference_start: c.reference_end].seq.upper())
+
+
