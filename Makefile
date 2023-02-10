@@ -1,0 +1,2 @@
+@all:
+	./actions.sh

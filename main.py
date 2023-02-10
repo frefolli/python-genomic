@@ -1,34 +1,15 @@
 #!/usr/bin/env python3
-# import pysam
-import pysam, re
-from Bio import SeqIO
+from lib import FastaFile
+from lib import BamFile
 
-# define reference import function
-def open_reference(path):
-    reference = SeqIO.index(path, "fasta")
-    return reference['X']
+# sample of workflow
+def workflow():
+    bamfile : BamFile
+    with BamFile('./sample.bam') as bamfile:
+        reference : FastaFile
+        with FastaFile('GRCh37.X.fasta') as reference:
+            chrX = reference.get_reference('X')
+            print(chrX[10304:170701])
 
-# define samfile import function
-def open_samfile(path):
-    pysam.index(path)
-    samfile = pysam.AlignmentFile(path, "rb")
-    return samfile
-
-# extract n-containing alignments
-def extract_candidates(samfile):
-    for read in samfile.fetch():
-        if 'N' in read.cigarstring:
-            yield read
- 
-# workflow
 if __name__ == "__main__":
-    samfile = open_samfile('./sample.bam')
-    candidates = [_ for _ in extract_candidates(samfile)]
-    reference = open_reference('GRCh37.X.fasta')
-
-    c = candidates[0]
-    print(c.cigarstring)
-    print(c.query_sequence.upper())
-    print(reference[c.reference_start: c.reference_end].seq.upper())
-
-
+    workflow()

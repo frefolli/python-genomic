@@ -2,3 +2,4 @@
 *.bam
 *.bam.bai
 __pycache__
+env
