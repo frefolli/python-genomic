@@ -3,3 +3,6 @@
 *.bam.bai
 __pycache__
 .env
+.scannerwork
+.coverage
+coverage.xml

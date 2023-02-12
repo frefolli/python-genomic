@@ -6,8 +6,7 @@ class Reference:
         self.sequence = sequence
 
     def get_slice(self, start_index : int = None, end_index : int = None) -> SeqRecord.SeqRecord:
-        if (start_index == None):
-            return self.get_slice(self, 0, end_index)
+        if (start_index == None): start_index = 0
         if (end_index == None):
             return self.sequence[start_index:]
         return self.sequence[start_index: end_index]

@@ -55,7 +55,7 @@ class CsvFile:
         self.body = [line[0:index] + line[index+1:] for line in self.body]
 
     def add_column(self, new_column_name : str):
-        assert not (new_column_name in self.header)
+        assert new_column_name not in self.header
         self.header.append(new_column_name)
         self.body = [line + [""] for line in self.body]
     
@@ -87,6 +87,7 @@ class CsvFile:
         return self
     
     def __exit__(self, type, value, tb):
+        # every change to referred file is explicit
         pass
 
     def __str__(self):

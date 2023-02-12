@@ -1,2 +1,2 @@
 @all:
-	./actions.sh
+	./actions.sh run
