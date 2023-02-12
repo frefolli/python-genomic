@@ -12,4 +12,4 @@ class Reference:
         return self.sequence[start_index: end_index]
     
     def __str__(self) -> str:
-        return f"Reference(name = \"{self.name}\", sequence = {self.sequence.seq})"
+        return f"Reference(name = \"{self.name}\", sequence = \"{self.sequence.seq}\")"

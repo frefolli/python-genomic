@@ -4,6 +4,7 @@ from lib import BamFile
 from lib import CsvFile
 from tqdm import tqdm
 from enum import Enum
+from lib import Intron
 
 class CigarOperation(Enum):
     M = 0
@@ -39,7 +40,7 @@ def split_read(query_sequence : str, reference_sequence : str, cigar_tuples : li
     intron = reference_sequence[first_exon_length:first_exon_length+intron_length]
     second_exon = reference_sequence[:-second_exon_length]
     second_aligned_exon = query_sequence[:-second_aligned_exon_length]
-    return (first_exon, first_aligned_exon, intron, second_exon, second_aligned_exon)
+    return (first_exon, first_aligned_exon, Intron(intron), second_exon, second_aligned_exon)
 
 def process_alignment(id, reference, alignment):
     reference_slice = reference.get_slice(alignment.reference_start, alignment.reference_end)
@@ -49,10 +50,11 @@ def process_alignment(id, reference, alignment):
     REFERENCE_SEQUENCE = reference_slice.seq
     (first_exon, first_aligned_exon, intron, second_exon, second_aligned_exon) = split_read(QUERY_SEQUENCE, REFERENCE_SEQUENCE, alignment.cigartuples)
     FIRST_ALIGNED_EXON = first_aligned_exon
-    INTRON = intron
+    INTRON = intron.sequence
     SECOND_ALIGNED_EXON = second_aligned_exon
     INTRON_LENGTH = len(INTRON)
-    return [ID, CIGAR_STRING, QUERY_SEQUENCE, REFERENCE_SEQUENCE, FIRST_ALIGNED_EXON, INTRON, SECOND_ALIGNED_EXON, INTRON_LENGTH]
+    INTRON_IS_CANONIC = INTRON.is_canonic()
+    return [ID, CIGAR_STRING, QUERY_SEQUENCE, REFERENCE_SEQUENCE, FIRST_ALIGNED_EXON, INTRON, SECOND_ALIGNED_EXON, INTRON_LENGTH, INTRON_IS_CANONIC]
 
 # sample of workflow
 def workflow(bamfile_path : str, fastafile_path : str, reference_name : str):
@@ -63,7 +65,7 @@ def workflow(bamfile_path : str, fastafile_path : str, reference_name : str):
             reference = fastafile.get_reference(reference_name)
             csvfile : CsvFile
             with CsvFile("reads.csv") as csvfile:
-                csvfile.rebase(["id", "cigar_string", "query_sequence", "reference_sequence", "first_aligned_exon", "intron", "second_aligned_exon", "intron_length"])
+                csvfile.rebase(["id", "cigar_string", "query_sequence", "reference_sequence", "first_aligned_exon", "intron", "second_aligned_exon", "intron_length", "intron_is_canonic"])
                 match_rule = "([0-9]+[MIDSHP=X])*[0-9]+N([0-9]+[MIDSHP=X])*"
                 matching = [_ for _ in enumerate(bamfile.get_alignments_matching_cigarstring(match_rule))]
                 with tqdm(total=len(matching), desc=f"processing alignments") as progress:

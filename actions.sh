@@ -28,7 +28,8 @@ function run_sonarqube() {
 }
 
 function run_tests() {
-    $ENV/bin/pytest --cov=. --junit-xml=coverage.xml tests/
+    $ENV/bin/coverage run -m pytest
+    $ENV/bin/coverage xml
 }
 
 case "$1" in
@@ -38,8 +39,9 @@ case "$1" in
     'verify')
         verify_python_env
         ;;
-    'sample')
+    'CI')
         run_tests
+        run_sonarqube
         ;;
     'sonarqube')
         run_sonarqube
@@ -48,7 +50,7 @@ case "$1" in
         run_tests
         ;;
     *)
-        echo "Usage: $0 { run | verify | test | sonarqube | sample }"
+        echo "Usage: $0 { run | verify | test | sonarqube | CI }"
         exit 1
         ;;
 esac

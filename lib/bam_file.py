@@ -25,4 +25,4 @@ class BamFile:
         self.alignment_file.close()
     
     def __str__(self) -> str:
-        return f"BamFile(path = '{self.path}')"
+        return f"BamFile(path = \"{self.path}\")"

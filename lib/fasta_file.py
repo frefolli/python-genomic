@@ -19,4 +19,4 @@ class FastaFile:
         self.index.close()
     
     def __str__(self) -> str:
-        return f"FastaFile(path = '{self.path}')"
+        return f"FastaFile(path = \"{self.path}\")"
