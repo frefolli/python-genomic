@@ -3,8 +3,8 @@ from lib import CsvFile
 
 class CsvFileTest(unittest.TestCase):
     def test_workflow(self):
-        dir = tempfile.TemporaryDirectory()
-        path = os.path.join(dir.name, "some.csv")
+        tmpdir = tempfile.TemporaryDirectory()
+        path = os.path.join(tmpdir.name, "some.csv")
 
         with CsvFile(path) as csvfile:
             csvfile.add_column('uno')
@@ -24,4 +24,4 @@ class CsvFileTest(unittest.TestCase):
             csvfile.change_path(path)
             csvfile.save_as(path)
 
-        dir.cleanup()
+        tmpdir.cleanup()
