@@ -1,5 +1,5 @@
 #!/bin/bash
-ENV=env
+ENV=.env
 
 function install_python_env() {
     echo -e "installing python enviroment"
