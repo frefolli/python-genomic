@@ -1,16 +1,16 @@
 from Bio import SeqIO
-from Bio import SeqRecord
+from .reference import Reference
 
 class FastaFile:
     def __init__(self, path : str):
         self.path = path
         self.index = SeqIO.index(path, "fasta")
     
-    def get_reference_names(self) -> str:
+    def get_reference_names(self) -> list[str]:
         return [_ for _ in self.index]
     
-    def get_reference(self, name : str) -> SeqRecord.SeqRecord:
-        return self.index[name]
+    def get_reference(self, name : str) -> Reference:
+        return Reference(name, self.index[name])
     
     def __enter__(self):
         return self

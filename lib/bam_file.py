@@ -1,5 +1,5 @@
 from typing import Generator
-import pysam
+import pysam, re
 
 class BamFile:
     def __init__(self, path : str):
@@ -11,6 +11,12 @@ class BamFile:
     def get_alignments(self) -> Generator[pysam.AlignedSegment, None, None]:
         for read in self.alignment_file.fetch():
             yield read
+    
+    def get_alignments_matching_cigarstring(self, match_rule : str) -> Generator[pysam.AlignedSegment, None, None]:
+        match_rule_engine = re.compile(match_rule)
+        for alignment in self.get_alignments():
+            if (match_rule_engine.match(alignment.cigarstring)):
+                yield alignment
     
     def __enter__(self):
         return self
