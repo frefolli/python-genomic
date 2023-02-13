@@ -1,8 +1,9 @@
-*.fasta
-*.bam
+/*.fasta
+/*.bam
 *.bam.bai
 __pycache__
 .env
 .scannerwork
 .coverage
 coverage.xml
+/*.csv

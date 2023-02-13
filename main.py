@@ -53,7 +53,7 @@ def process_alignment(id, reference, alignment):
     INTRON = intron.sequence
     SECOND_ALIGNED_EXON = second_aligned_exon
     INTRON_LENGTH = len(INTRON)
-    INTRON_IS_CANONIC = INTRON.is_canonic()
+    INTRON_IS_CANONIC = intron.is_canonic()
     return [ID, CIGAR_STRING, QUERY_SEQUENCE, REFERENCE_SEQUENCE, FIRST_ALIGNED_EXON, INTRON, SECOND_ALIGNED_EXON, INTRON_LENGTH, INTRON_IS_CANONIC]
 
 # sample of workflow
