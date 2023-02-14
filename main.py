@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 from lib import FastaFile
 from lib import BamFile
+from lib import Reference
 from lib import CsvFile
 from tqdm import tqdm
 from enum import Enum
 from lib import Intron
+from pysam import AlignedSegment 
 
 class CigarOperation(Enum):
     M = 0
@@ -35,19 +37,19 @@ def split_read(query_sequence : str, reference_sequence : str, cigar_tuples : li
     second_exon_length = sum([op[1] for op in cigar_tuples[intron_op_index+1:]])
     second_aligned_exon_length = sum([op[1] if op[0] in CIGAR_OPERATIONS_THAT_CONSUME_QUERY else 0 for op in cigar_tuples[intron_op_index+1:]])
     intron_length = cigar_tuples[intron_op_index][1]
-    first_exon = reference_sequence[first_exon_length:]
-    first_aligned_exon = query_sequence[first_aligned_exon_length:]
+    first_exon = reference_sequence[:first_exon_length]
+    first_aligned_exon = query_sequence[:first_aligned_exon_length]
     intron = reference_sequence[first_exon_length:first_exon_length+intron_length]
-    second_exon = reference_sequence[:-second_exon_length]
-    second_aligned_exon = query_sequence[:-second_aligned_exon_length]
+    second_exon = reference_sequence[-second_exon_length:]
+    second_aligned_exon = query_sequence[-second_aligned_exon_length:]
     return (first_exon, first_aligned_exon, Intron(intron), second_exon, second_aligned_exon)
 
-def process_alignment(id, reference, alignment):
-    reference_slice = reference.get_slice(alignment.reference_start, alignment.reference_end)
+def process_alignment(id : int, reference : Reference, alignment : AlignedSegment):
+    reference_slice = reference.get_slice(alignment.reference_start, alignment.reference_end, alignment.is_reverse)
     ID = id
     CIGAR_STRING = alignment.cigarstring
     QUERY_SEQUENCE = alignment.query_sequence
-    REFERENCE_SEQUENCE = reference_slice.seq
+    REFERENCE_SEQUENCE = reference_slice
     (first_exon, first_aligned_exon, intron, second_exon, second_aligned_exon) = split_read(QUERY_SEQUENCE, REFERENCE_SEQUENCE, alignment.cigartuples)
     FIRST_ALIGNED_EXON = first_aligned_exon
     INTRON = intron.sequence

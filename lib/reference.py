@@ -5,11 +5,14 @@ class Reference:
         self.name = name
         self.sequence = sequence
 
-    def get_slice(self, start_index : int = None, end_index : int = None) -> SeqRecord.SeqRecord:
-        if (start_index == None): start_index = 0
+    def get_slice(self, start_index : int = None, end_index : int = None, reverse : bool = False) -> SeqRecord.SeqRecord:
+        seq = self.sequence.seq
+        if (start_index == None): start_index=0
         if (end_index == None):
-            return self.sequence[start_index:]
-        return self.sequence[start_index: end_index]
+            seq = seq[start_index:]
+        else:
+            seq = seq[start_index: end_index]
+        return seq.reverse_complement() if reverse else seq
     
     def __str__(self) -> str:
         return f"Reference(name = \"{self.name}\", sequence = \"{self.sequence.seq}\")"
