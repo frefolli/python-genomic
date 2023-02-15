@@ -46,6 +46,8 @@ def split_read(query_sequence : str, reference_sequence : str, cigar_tuples : li
 
 def process_alignment(id : int, reference : Reference, alignment : AlignedSegment):
     reference_slice = reference.get_slice(alignment.reference_start, alignment.reference_end, alignment.is_reverse)
+    print(type(reference_slice))
+    return;
     ID = id
     CIGAR_STRING = alignment.cigarstring
     QUERY_SEQUENCE = alignment.query_sequence
