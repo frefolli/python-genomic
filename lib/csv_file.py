@@ -79,7 +79,7 @@ class CsvFile:
         assert line_index < self.__len__()
         return self.body[line_index]
     
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.body)
 
     def __enter__(self):
@@ -90,5 +90,5 @@ class CsvFile:
         # every change to referred file is explicit
         pass
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"CsvFile(path = \"{self.path}\")"
