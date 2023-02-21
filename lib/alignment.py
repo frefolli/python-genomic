@@ -126,9 +126,14 @@ class Alignment:
     def get_intron(self, reference : Reference) -> str:
         intron_range = self.get_intron_range()
         is_reverse = self.alignment.get_is_reverse()
-        print(reference.sequence.seq, intron_range, is_reverse)
         return reference.get_slice(intron_range[0], intron_range[1], is_reverse)
-
+    
+    """
+        @uses reference
+        @uses first_aligned_exon
+        @uses second_aligned_exon
+        @uses intron
+    """
     def split_read(self, reference : Reference) -> tuple[str, str, str]:
         first_aligned_exon = self.get_first_aligned_exon()
         second_aligned_exon = self.get_second_aligned_exon()

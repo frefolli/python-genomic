@@ -8,7 +8,7 @@ from Bio import SeqRecord
 class AlignmentTest(unittest.TestCase):
     def test_get_cigar_tuples(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
             (i, i) for i in range(9)
         ])
         alignment = Alignment(0, alignedSegment)
@@ -17,7 +17,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intronic_site(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -27,7 +27,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_first_aligned_exon_length(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -37,7 +37,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_first_aligned_exon_length_with_soft_clipping(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
@@ -48,7 +48,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_first_aligned_exon_range(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -58,7 +58,7 @@ class AlignmentTest(unittest.TestCase):
 
     def test_get_first_aligned_exon_range_with_soft_clipping(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
@@ -70,7 +70,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_second_aligned_exon_length(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -80,7 +80,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_second_aligned_exon_length_soft_clipping(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6),
@@ -91,7 +91,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_second_aligned_exon_range(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -101,7 +101,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_second_aligned_exon_range_with_soft_clipping(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6),
@@ -113,7 +113,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_first_aligned_exon(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -124,7 +124,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_first_aligned_exon_with_soft_clipping(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
@@ -137,7 +137,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_second_aligned_exon(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -148,7 +148,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_second_aligned_exon_with_soft_clipping(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6),
@@ -161,7 +161,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_first_exon_length(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -171,7 +171,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_first_exon_length_with_soft_clipping(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
@@ -182,7 +182,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_length(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 7),
                 (CigarOperation.M, 6)
@@ -192,7 +192,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_range(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -202,7 +202,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -216,7 +216,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_with_head_sc(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
@@ -232,7 +232,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_with_tail_sc(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6),
@@ -248,7 +248,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_with_both_sc(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
@@ -266,7 +266,7 @@ class AlignmentTest(unittest.TestCase):
 
     def test_get_intron_with_reverse(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6)
@@ -281,7 +281,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_with_head_sc_and_reverse(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
@@ -298,7 +298,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_with_tail_sc_and_reverse(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),
                 (CigarOperation.M, 6),
@@ -315,7 +315,7 @@ class AlignmentTest(unittest.TestCase):
     
     def test_get_intron_with_both_sc_and_reverse(self):
         alignedSegment = AlignedSegment.from_properties(
-            cigartuples = [
+            cigar_tuples = [
                 (CigarOperation.S, 2),
                 (CigarOperation.M, 5),
                 (CigarOperation.N, 5),

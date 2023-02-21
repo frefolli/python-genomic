@@ -1,4 +1,5 @@
 import pysam
+from lib import cigar_tuples_to_cigar_string
 
 """
     @represents a useful abstraction for pysam.AlignedSegment
@@ -7,7 +8,8 @@ class AlignedSegment:
     @staticmethod
     def from_properties(
         query_sequence = None,
-        cigartuples = None,
+        cigar_tuples = None,
+        cigar_string = None,
         query_sequence_length = None,
         query_alignment_start = None,
         query_alignment_end = None,
@@ -17,15 +19,16 @@ class AlignedSegment:
         result = AlignedSegment()
 
         if (not query_sequence): query_sequence = ""
-        if (not cigartuples): cigartuples = [(0, len(query_sequence))]
-        if (not query_sequence_length): query_sequence_length = sum([op[1] for op in cigartuples])
+        if (not cigar_tuples): cigar_tuples = [(0, len(query_sequence))]
+        if (not cigar_string): cigar_string = cigar_tuples_to_cigar_string(cigar_tuples)
+        if (not query_sequence_length): query_sequence_length = sum([op[1] for op in cigar_tuples])
         if (not query_alignment_start): query_alignment_start = 0
         if (not query_alignment_end): query_alignment_end = query_sequence_length
         if (not reference_start): reference_start = 0
         if (not reference_end): reference_end = 0
         if (not is_reverse): is_reverse = False
 
-        result.cigartuples = cigartuples
+        result.cigar_tuples = cigar_tuples
         result.query_alignment_start = query_alignment_start
         result.query_alignment_end = query_alignment_end
         result.query_sequence_length = query_sequence_length
@@ -41,7 +44,8 @@ class AlignedSegment:
     def from_pysam_alignment_segment(aligned_segment : pysam.AlignedSegment):
         result = AlignedSegment()
 
-        result.cigartuples = aligned_segment.cigartuples
+        result.cigar_tuples = aligned_segment.cigartuples
+        result.cigar_string = aligned_segment.cigarstring
         result.query_alignment_start = aligned_segment.query_alignment_start
         result.query_alignment_end = aligned_segment.query_alignment_end
         result.query_sequence_length = len(aligned_segment.query_sequence)
@@ -53,8 +57,11 @@ class AlignedSegment:
 
         return result
 
+    def get_cigar_string(self) -> str:
+        return self.cigar_string
+
     def get_cigar_tuples(self) -> list[tuple[int, int]]:
-        return self.cigartuples
+        return self.cigar_tuples
 
     def get_query_alignment_start(self) -> int:
         return self.query_alignment_start
