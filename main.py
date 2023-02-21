@@ -5,7 +5,7 @@ from lib import CsvFile
 from tqdm import tqdm
 from lib import Alignment
 from lib import AlignedSegment
-import pysam
+import argparse, sys
 
 # sample of workflow
 def workflow(bamfile_path : str, fastafile_path : str, reference_name : str):
@@ -37,5 +37,19 @@ def workflow(bamfile_path : str, fastafile_path : str, reference_name : str):
                         csvfile.add_line(align.process_alignment(reference))
                 csvfile.save()
 
+def command_line_interface():
+    argument_parser = argparse.ArgumentParser(
+        prog = "main",
+        description = "this python module identifies introns and exons in reads when given FASTA and BAM")
+    argument_parser.add_argument("-b", "--bam", type = str, default = "sample.bam", help = "supply BAM file path, default = 'sample.bam'")
+    argument_parser.add_argument("-f", "--fasta", type = str, default = "BDGP6.X.fasta", help = "supply FASTA file path, default = 'BDGP6.X.fasta'")
+    argument_parser.add_argument("-c", "--chromosome", type = str, default = "X", help = "supply chromosome name, default = 'X'")
+    config = argument_parser.parse_args()
+    
+    bam = config.bam
+    fasta = config.fasta
+    chromosome = config.chromosome
+    workflow(bam, fasta, chromosome)
+
 if __name__ == "__main__":
-    workflow('sample.bam', 'BDGP6.X.fasta', 'X')
+    command_line_interface()
