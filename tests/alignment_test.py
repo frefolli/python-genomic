@@ -299,7 +299,6 @@ class AlignmentTest(unittest.TestCase):
             query_sequence="AAAAAGGGGGG")
         reference = Reference.from_name_and_sequence("X", "CCCCCCGGGGATTTTT")
         alignment = craft_alignment_worker(aligned_segment, reference)
-        alignment = craft_alignment_worker(aligned_segment, reference)
         self.assertEqual("CCCCG", alignment.get_intron())
     
     def test_get_intron_with_tail_sc_and_reverse(self):
