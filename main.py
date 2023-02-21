@@ -128,7 +128,7 @@ def apply_config(config):
     if config.silent:
         loglevel = "ERROR"
     if config.verbose:
-        loglevel = "DEBUG"
+        loglevel = "INFO"
 
     logfile = config.logfile
     logging.basicConfig(filename=logfile, level=loglevel)

@@ -93,4 +93,4 @@ class AlignedSegment:
         return self.is_reverse
     
     def get_read_id(self) -> str:
-        return str(self.id)
+        return str(self.read_id)
