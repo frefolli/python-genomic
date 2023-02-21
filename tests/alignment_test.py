@@ -276,8 +276,8 @@ class AlignmentTest(unittest.TestCase):
             reference_end=16,
             query_sequence="AAAAAGGGGGG")
         alignment = Alignment(0, alignedSegment)
-        reference = Reference.from_name_and_sequence("X", "AAAAATCCCCGGGGGG")
-        self.assertEqual("TCCCC", alignment.get_intron(reference))
+        reference = Reference.from_name_and_sequence("X", "CCCCCCGGGGATTTTT")
+        self.assertEqual("CCCCG", alignment.get_intron(reference))
     
     def test_get_intron_with_head_sc_and_reverse(self):
         alignedSegment = AlignedSegment.from_properties(
@@ -294,7 +294,7 @@ class AlignmentTest(unittest.TestCase):
             query_sequence="AAAAAGGGGGG")
         alignment = Alignment(0, alignedSegment)
         reference = Reference.from_name_and_sequence("X", "CCCCCCGGGGATTTTT")
-        self.assertEqual("TCCCC", alignment.get_intron(reference))
+        self.assertEqual("CCCCG", alignment.get_intron(reference))
     
     def test_get_intron_with_tail_sc_and_reverse(self):
         alignedSegment = AlignedSegment.from_properties(
@@ -311,7 +311,7 @@ class AlignmentTest(unittest.TestCase):
             query_sequence="AAAAAGGGGGG")
         alignment = Alignment(0, alignedSegment)
         reference = Reference.from_name_and_sequence("X", "CCCCCCGGGGATTTTT")
-        self.assertEqual("TCCCC", alignment.get_intron(reference))
+        self.assertEqual("CCCCG", alignment.get_intron(reference))
     
     def test_get_intron_with_both_sc_and_reverse(self):
         alignedSegment = AlignedSegment.from_properties(
@@ -330,4 +330,4 @@ class AlignmentTest(unittest.TestCase):
             query_sequence="AAAAAGGGGGG")
         alignment = Alignment(0, alignedSegment)
         reference = Reference.from_name_and_sequence("X", "CCCCCCGGGGATTTTT")
-        self.assertEqual("TCCCC", alignment.get_intron(reference))
+        self.assertEqual("CCCCG", alignment.get_intron(reference))
