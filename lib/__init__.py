@@ -5,4 +5,4 @@ from .bam_file import BamFile
 from .fasta_file import FastaFile
 from .intron import Intron
 from .aligned_segment import AlignedSegment
-from .alignment import Alignment
+from .alignment_worker import AlignmentWorker

@@ -6,10 +6,15 @@ from lib import CigarOperation, CIGAR_OPERATIONS_THAT_CONSUME_QUERY, CIGAR_OPERA
 """
     @does parse introns and exons from AlignedSegments
 """
-class Alignment:
-    def __init__(self, id : int, aligned_segment : AlignedSegment):
+class AlignmentWorker:
+    def __init__(self, id : int):
         self.id = id
+    
+    def set_aligned_segment(self, aligned_segment : AlignedSegment):
         self.aligned_segment = aligned_segment
+    
+    def set_reference(self, reference : Reference):
+        self.reference = reference
     
     """
         @uses pysam.cigar_tuples
@@ -123,10 +128,10 @@ class Alignment:
         @uses is_reverse
         @returns intron
     """
-    def get_intron(self, reference : Reference) -> str:
+    def get_intron(self) -> str:
         intron_range = self.get_intron_range()
         is_reverse = self.aligned_segment.get_is_reverse()
-        return reference.get_slice(intron_range[0], intron_range[1], is_reverse)
+        return self.reference.get_slice(intron_range[0], intron_range[1], is_reverse)
     
     """
         @uses reference
@@ -134,19 +139,19 @@ class Alignment:
         @uses second_aligned_exon
         @uses intron
     """
-    def split_read(self, reference : Reference) -> tuple[str, str, str]:
+    def split_read(self) -> tuple[str, str, str]:
         first_aligned_exon = self.get_first_aligned_exon()
         second_aligned_exon = self.get_second_aligned_exon()
-        intron = self.get_intron(reference)
+        intron = self.get_intron()
         return (first_aligned_exon, intron, second_aligned_exon)
 
-    def process_alignment(self, reference : Reference) -> list:
-        (first_aligned_exon, intron, second_aligned_exon) = self.split_read(reference)
+    def process_alignment(self) -> list:
+        (first_aligned_exon, intron, second_aligned_exon) = self.split_read()
         return [
-            self.id,
+            self.aligned_segment.get_id(),
             self.aligned_segment.get_cigar_string(),
             self.aligned_segment.get_query_sequence(),
-            reference.get_slice(self.aligned_segment.get_reference_start(), self.aligned_segment.get_reference_end()),
+            self.reference.get_slice(self.aligned_segment.get_reference_start(), self.aligned_segment.get_reference_end()),
             first_aligned_exon,
             intron,
             second_aligned_exon,

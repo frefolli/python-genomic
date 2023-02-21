@@ -3,7 +3,7 @@ from lib import FastaFile
 from lib import BamFile
 from lib import CsvFile
 from tqdm import tqdm
-from lib import Alignment
+from lib import AlignmentWorker
 from lib import AlignedSegment
 import argparse, sys
 
@@ -28,13 +28,14 @@ def workflow(bamfile_path : str, fastafile_path : str, reference_name : str):
                     "intron_is_canonic"
                 ])
                 match_rule = "^([0-9]+[MIDSHP=X])*[0-9]+N([0-9]+[MIDSHP=X])*$"
-                matching = [_ for _ in enumerate(bamfile.get_alignments_matching_cigarstring(match_rule))]
+                matching = [_ for _ in bamfile.get_alignments_matching_cigarstring(match_rule)]
+                worker = AlignmentWorker(0)
                 with tqdm(total=len(matching), desc=f"processing alignments") as progress:
-                    align = None
-                    for (id, alignment) in matching:
-                        align = Alignment(id, AlignedSegment.from_pysam_alignment_segment(alignment))
+                    for alignment in matching:
                         progress.update(1)
-                        csvfile.add_line(align.process_alignment(reference))
+                        worker.set_aligned_segment(AlignedSegment.from_pysam_alignment_segment(alignment))
+                        worker.set_reference(reference)
+                        csvfile.add_line(worker.process_alignment())
                 csvfile.save()
 
 def command_line_interface():
