@@ -29,6 +29,7 @@ class AlignedSegment:
         if (not is_reverse): is_reverse = False
 
         result.cigar_tuples = cigar_tuples
+        result.cigar_string = cigar_string
         result.query_alignment_start = query_alignment_start
         result.query_alignment_end = query_alignment_end
         result.query_sequence_length = query_sequence_length
