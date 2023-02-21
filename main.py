@@ -19,7 +19,7 @@ def workflow(bamfile_path : str, fastafile_path : str, reference_name : str):
             csvfile : CsvFile
             with CsvFile("reads.csv") as csvfile:
                 csvfile.rebase(["id", "cigar_string", "query_sequence", "reference_sequence", "first_aligned_exon", "intron", "second_aligned_exon", "intron_length", "intron_is_canonic"])
-                match_rule = "([0-9]+[MIDSHP=X])*[0-9]+N([0-9]+[MIDSHP=X])*"
+                match_rule = "^([0-9]+[MIDSHP=X])*[0-9]+N([0-9]+[MIDSHP=X])*$"
                 matching = [_ for _ in enumerate(bamfile.get_alignments_matching_cigarstring(match_rule))]
                 with tqdm(total=len(matching), desc=f"processing alignments") as progress:
                     align = None

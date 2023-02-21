@@ -1,6 +1,11 @@
 from Bio import SeqRecord
+from Bio import Seq
 
 class Reference:
+    @staticmethod
+    def from_name_and_sequence(name : str, sequence : str):
+        return Reference(name = name, sequence = SeqRecord.SeqRecord(Seq.Seq(sequence)))
+
     def __init__(self, name : str, sequence : SeqRecord.SeqRecord):
         self.name = name
         self.sequence = sequence

@@ -10,11 +10,19 @@ class CigarOperation(Enum):
     P = 6
     E = 7
     X = 8
-
+    
 CIGAR_OPERATIONS_THAT_CONSUME_QUERY = [
     CigarOperation.M,
     CigarOperation.I,
     CigarOperation.S,
+    CigarOperation.E,
+    CigarOperation.X
+]
+    
+CIGAR_OPERATIONS_THAT_CONSUME_REFERENCE = [
+    CigarOperation.M,
+    CigarOperation.D,
+    CigarOperation.N,
     CigarOperation.E,
     CigarOperation.X
 ]
