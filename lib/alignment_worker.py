@@ -148,7 +148,7 @@ class AlignmentWorker:
     def process_alignment(self) -> list:
         (first_aligned_exon, intron, second_aligned_exon) = self.split_read()
         return [
-            self.aligned_segment.get_id(),
+            self.aligned_segment.get_read_id(),
             self.aligned_segment.get_cigar_string(),
             self.aligned_segment.get_query_sequence(),
             self.reference.get_slice(self.aligned_segment.get_reference_start(), self.aligned_segment.get_reference_end()),

@@ -16,7 +16,7 @@ class AlignedSegment:
         reference_start = None,
         reference_end = None,
         is_reverse = None,
-        id = None):
+        read_id = None):
         result = AlignedSegment()
 
         if (not query_sequence): query_sequence = ""
@@ -28,7 +28,7 @@ class AlignedSegment:
         if (not reference_start): reference_start = 0
         if (not reference_end): reference_end = 0
         if (not is_reverse): is_reverse = False
-        if (not id): id = 0
+        if (not read_id): read_id = 0
 
         result.cigar_tuples = cigar_tuples
         result.cigar_string = cigar_string
@@ -40,7 +40,7 @@ class AlignedSegment:
         result.reference_start = reference_start
         result.reference_end = reference_end
         result.is_reverse = is_reverse
-        result.id = id
+        result.read_id = read_id
 
         return result
 
@@ -58,7 +58,7 @@ class AlignedSegment:
         result.reference_start = aligned_segment.reference_start
         result.reference_end = aligned_segment.reference_end
         result.is_reverse = aligned_segment.is_reverse
-        result.id = aligned_segment.query_name
+        result.read_id = aligned_segment.query_name
 
         return result
 
@@ -92,5 +92,5 @@ class AlignedSegment:
     def get_is_reverse(self) -> int:
         return self.is_reverse
     
-    def get_id(self) -> str:
+    def get_read_id(self) -> str:
         return str(self.id)
