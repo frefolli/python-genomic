@@ -1,9 +1,22 @@
+"""
+    @does test Intron
+"""
+
 import unittest
 from lib import Intron
 
-class CsvFileTest(unittest.TestCase):
+
+class IntronTest(unittest.TestCase):
+    """
+        @does test Intron
+    """
+
     def test_workflow(self):
-        self.assertFalse(Intron("ggag").is_canonic())
-        self.assertFalse(Intron("gag").is_canonic())
-        self.assertTrue(Intron("gtag").is_canonic())
-        self.assertEqual(f"Intron(sequence = \"acgt\")", str(Intron("acgt")))
+        """
+            @does test
+        """
+        self.assertFalse(Intron("ggag").is_canonical())
+        self.assertFalse(Intron("gag").is_canonical())
+        self.assertTrue(Intron("gtag").is_canonical())
+        self.assertEqual("Intron(sequence = \"acgt\")",
+                         str(Intron("acgt")))
