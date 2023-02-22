@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "genomic"
+version = "0.0.1"
+license-files = { paths = ["LICENSE"] }
+authors = [
+  { name="Refolli Francesco", email="frefolli@campus.unimib.it" },
+]
+description = "Given BAM and FASTA it finds introns for reads in BAM"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/frefolli/bioinf-progetto"
+"Bug Tracker" = "https://github.com/frefolli/bioinf-progetto/issues"
+
+[tool.hatch.build]
+include = [
+  "/lib/*.py",
+  "/tests/*.py",
+  "/samples/bam/*.bam",
+  "/samples/fasta/*.fasta",
+]

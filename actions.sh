@@ -20,7 +20,7 @@ function verify_python_env() {
 }
 
 function run_main() {
-    $ENV/bin/python3 -m main
+    $ENV/bin/python3 -m lib
 }
 
 function run_sonarqube() {
