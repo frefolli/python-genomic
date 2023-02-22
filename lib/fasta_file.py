@@ -2,7 +2,10 @@
     @does define FastaFile abstraction
 """
 
+import logging
+
 from Bio import SeqIO
+
 from .reference import Reference
 
 
@@ -34,6 +37,7 @@ class FastaFile:
         """
             @does enter for with-as
         """
+        logging.info("OPENED fastafile %s", self.path)
         return self
 
     def __exit__(self, exception_type,
@@ -42,6 +46,7 @@ class FastaFile:
             @does exit for with-as
         """
         self.index.close()
+        logging.info("CLOSED fastafile %s", self.path)
 
     def __str__(self) -> str:
         """

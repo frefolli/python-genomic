@@ -4,6 +4,7 @@
 
 from typing import Generator
 import re
+import logging
 
 import pysam
 
@@ -44,6 +45,7 @@ class BamFile:
         """
             @does enter for with-as
         """
+        logging.info("OPENED bamfile %s", self.path)
         return self
 
     def __exit__(self, exception_type,
@@ -52,6 +54,7 @@ class BamFile:
             @does exit for with-as
         """
         self.alignment_file.close()
+        logging.info("CLOSED bamfile %s", self.path)
 
     def __str__(self) -> str:
         """

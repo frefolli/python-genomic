@@ -21,7 +21,7 @@ def craft_alignment_worker(aligned_segment: AlignedSegment,
     return alignment_worker
 
 
-class AlignmentTest(unittest.TestCase):
+class AlignmentGenericTest(unittest.TestCase):
     """
         @define test class for Alignment and AlignedSegment
     """
@@ -50,6 +50,12 @@ class AlignmentTest(unittest.TestCase):
             ])
         alignment = craft_alignment_worker(aligned_segment)
         self.assertEqual(1, alignment.get_intronic_site())
+
+
+class AlignmentFirstGetExonTest(unittest.TestCase):
+    """
+        @define test class for getting first exon
+    """
 
     def test_get_first_aligned_exon_length(self):
         """
@@ -106,6 +112,69 @@ class AlignmentTest(unittest.TestCase):
         alignment = craft_alignment_worker(aligned_segment)
         self.assertEqual((2, 7), alignment.get_first_aligned_exon_range())
 
+    def test_get_first_aligned_exon(self):
+        """
+            @does test
+        """
+        aligned_segment = AlignedSegment.from_properties(
+            cigar_tuples=[
+                (CigarOperation.M, 5),
+                (CigarOperation.N, 5),
+                (CigarOperation.M, 6)
+            ],
+            query_sequence="ACGTCAAAAACCGGCC")
+        alignment = craft_alignment_worker(aligned_segment)
+        self.assertEqual("ACGTC", alignment.get_first_aligned_exon())
+
+    def test_get_first_aligned_exon_with_soft_clipping(self):
+        """
+            @does test
+        """
+        aligned_segment = AlignedSegment.from_properties(
+            cigar_tuples=[
+                (CigarOperation.S, 2),
+                (CigarOperation.M, 5),
+                (CigarOperation.N, 5),
+                (CigarOperation.M, 6)
+            ],
+            query_alignment_start=2,
+            query_sequence="CCACGTCAAAAACCGGCC")
+        alignment = craft_alignment_worker(aligned_segment)
+        self.assertEqual("ACGTC", alignment.get_first_aligned_exon())
+
+    def test_get_first_exon_length(self):
+        """
+            @does test
+        """
+        aligned_segment = AlignedSegment.from_properties(
+            cigar_tuples=[
+                (CigarOperation.M, 5),
+                (CigarOperation.N, 5),
+                (CigarOperation.M, 6)
+            ])
+        alignment = craft_alignment_worker(aligned_segment)
+        self.assertEqual(5, alignment.get_first_exon_length())
+
+    def test_get_first_exon_length_with_soft_clipping(self):
+        """
+            @does test
+        """
+        aligned_segment = AlignedSegment.from_properties(
+            cigar_tuples=[
+                (CigarOperation.S, 2),
+                (CigarOperation.M, 5),
+                (CigarOperation.N, 5),
+                (CigarOperation.M, 6)
+            ])
+        alignment = craft_alignment_worker(aligned_segment)
+        self.assertEqual(5, alignment.get_first_exon_length())
+
+
+class AlignmentGetSecondExonTest(unittest.TestCase):
+    """
+        @define test class for getting second exon
+    """
+
     def test_get_second_aligned_exon_length(self):
         """
             @does test
@@ -161,36 +230,6 @@ class AlignmentTest(unittest.TestCase):
         alignment = craft_alignment_worker(aligned_segment)
         self.assertEqual((10, 16), alignment.get_second_aligned_exon_range())
 
-    def test_get_first_aligned_exon(self):
-        """
-            @does test
-        """
-        aligned_segment = AlignedSegment.from_properties(
-            cigar_tuples=[
-                (CigarOperation.M, 5),
-                (CigarOperation.N, 5),
-                (CigarOperation.M, 6)
-            ],
-            query_sequence="ACGTCAAAAACCGGCC")
-        alignment = craft_alignment_worker(aligned_segment)
-        self.assertEqual("ACGTC", alignment.get_first_aligned_exon())
-
-    def test_get_first_aligned_exon_with_soft_clipping(self):
-        """
-            @does test
-        """
-        aligned_segment = AlignedSegment.from_properties(
-            cigar_tuples=[
-                (CigarOperation.S, 2),
-                (CigarOperation.M, 5),
-                (CigarOperation.N, 5),
-                (CigarOperation.M, 6)
-            ],
-            query_alignment_start=2,
-            query_sequence="CCACGTCAAAAACCGGCC")
-        alignment = craft_alignment_worker(aligned_segment)
-        self.assertEqual("ACGTC", alignment.get_first_aligned_exon())
-
     def test_get_second_aligned_exon(self):
         """
             @does test
@@ -221,32 +260,11 @@ class AlignmentTest(unittest.TestCase):
         alignment = craft_alignment_worker(aligned_segment)
         self.assertEqual("CCGGCC", alignment.get_second_aligned_exon())
 
-    def test_get_first_exon_length(self):
-        """
-            @does test
-        """
-        aligned_segment = AlignedSegment.from_properties(
-            cigar_tuples=[
-                (CigarOperation.M, 5),
-                (CigarOperation.N, 5),
-                (CigarOperation.M, 6)
-            ])
-        alignment = craft_alignment_worker(aligned_segment)
-        self.assertEqual(5, alignment.get_first_exon_length())
 
-    def test_get_first_exon_length_with_soft_clipping(self):
-        """
-            @does test
-        """
-        aligned_segment = AlignedSegment.from_properties(
-            cigar_tuples=[
-                (CigarOperation.S, 2),
-                (CigarOperation.M, 5),
-                (CigarOperation.N, 5),
-                (CigarOperation.M, 6)
-            ])
-        alignment = craft_alignment_worker(aligned_segment)
-        self.assertEqual(5, alignment.get_first_exon_length())
+class AlignmentGetIntronTest(unittest.TestCase):
+    """
+        @define test class for getting intron
+    """
 
     def test_get_intron_length(self):
         """

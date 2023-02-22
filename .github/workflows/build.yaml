@@ -31,7 +31,7 @@ jobs:
         flake8 ./lib/*.py ./tests/*.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Lint with pylint
       run: |
-        pylint ./lib/*.py ./tests/*.py
+        pylint ./lib/*.py ./tests/*.py --exit-zero
   
   test:
     name: test

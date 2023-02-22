@@ -2,6 +2,7 @@
     @does define CsvFile abstraction
 """
 
+import logging
 import os
 
 
@@ -57,6 +58,7 @@ class CsvFile:
         header_line = ",".join(self.header)
         body_lines = self.__dump_body_lines()
         self.__write("\n".join([header_line] + body_lines))
+        logging.info("SAVED csvfile %s", self.path)
 
     def __dump_body_lines(self) -> list[str]:
         """
@@ -113,6 +115,7 @@ class CsvFile:
         self.body = []
         for column in column_list:
             self.add_column(column)
+        logging.info("REBASED csvfile %s", self.path)
 
     def add_line(self, field_list: list):
         """
@@ -148,6 +151,7 @@ class CsvFile:
             @does enter for with-as
         """
         self.__read_if_exists()
+        logging.info("OPENED csvfile %s", self.path)
         return self
 
     def __exit__(self, exception_type,
@@ -155,8 +159,7 @@ class CsvFile:
         """
             @does exit for with-as
         """
-        self.header = []
-        self.body = []
+        logging.info("CLOSED csvfile %s", self.path)
 
     def __str__(self) -> str:
         """

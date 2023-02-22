@@ -32,6 +32,12 @@ function run_tests() {
     $ENV/bin/coverage xml
 }
 
+function run_lints() {
+    $ENV/bin/pylint ./lib/*.py ./tests/*.py --exit-zero
+    $ENV/bin/flake8 ./lib/*.py ./tests/*.py --count --select=E9,F63,F7,F82 --show-source --statistics
+    $ENV/bin/flake8 ./lib/*.py ./tests/*.py --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+}
+
 case "$1" in
     'run')
         run_main
@@ -49,8 +55,11 @@ case "$1" in
     'test')
         run_tests
         ;;
+    'lint')
+        run_lints
+        ;;
     *)
-        echo "Usage: $0 { run | verify | test | sonarqube | CI }"
+        echo "Usage: $0 { run | verify | test | sonarqube | CI | lint }"
         exit 1
         ;;
 esac

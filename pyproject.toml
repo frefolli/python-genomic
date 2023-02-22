@@ -8,6 +8,7 @@ version = "0.0.1"
 license-files = { paths = ["LICENSE"] }
 authors = [
   { name="Refolli Francesco", email="frefolli@campus.unimib.it" },
+  { name="Terzi Telemaco", email="tezze.terzi01@google.com" }
 ]
 description = "Given BAM and FASTA it finds introns for reads in BAM"
 readme = "README.md"
@@ -16,6 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Bio-Informatics"
 ]
 dependencies = [
   "biopython==1.81",
