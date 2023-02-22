@@ -14,6 +14,7 @@ Produce as output the reads spliced, that is those reads which induce an intron 
  - the suffix of read which is aligned with prefix of exon at 3'
  - the first twenty bases of intron
  - the last twenty bases of intron
+
 Specify for each read its ID (aka Read Name) and if it's a canonical intron (starts with GT and ends with AG).
 
 ## CLI
