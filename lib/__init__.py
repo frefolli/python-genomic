@@ -1,3 +1,7 @@
+"""
+    @module lib for bioinf-progetto
+"""
+
 from .cigar_operation import CigarOperation  # noqa
 from .cigar_operation import CIGAR_OPERATIONS_THAT_CONSUME_QUERY  # noqa
 from .cigar_operation import CIGAR_OPERATIONS_THAT_CONSUME_REFERENCE  # noqa

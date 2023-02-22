@@ -84,11 +84,11 @@ jobs:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
     - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest-${{ env.BRANCH_NAME }}"
-          prerelease: true
-          title: "Latest ${{ env.BRANCH_NAME }} Build"
-          files: |
-            ./applicativo/genomic-*-py3-none-any.whl
-            ./applicativo/genomic-*.tar.gz
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest-${{ env.BRANCH_NAME }}"
+        prerelease: true
+        title: "Latest ${{ env.BRANCH_NAME }} Build"
+        files: |
+          ./applicativo/genomic-*-py3-none-any.whl
+          ./applicativo/genomic-*.tar.gz
