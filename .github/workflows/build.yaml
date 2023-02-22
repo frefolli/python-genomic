@@ -70,11 +70,11 @@ jobs:
       run: |
         pythom -m build
     - uses: actions/upload-artifact@v2
-        with:
-          name: applicativo
-          path: |
-            ./dist/genomic-*-py3-none-any.whl
-            ./dist/genomic-*.tar.gz
+      with:
+        name: applicativo
+        path: |
+          ./dist/genomic-*-py3-none-any.whl
+          ./dist/genomic-*.tar.gz
 
   distribute:
     needs: [build]
