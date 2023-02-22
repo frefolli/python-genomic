@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-from lib import FastaFile
-from lib import BamFile
-from lib import CsvFile
-from tqdm import tqdm
-from lib import AlignmentWorker
-from lib import AlignedSegment
-from lib import Reference
 import argparse
 from multiprocessing.pool import ThreadPool
 import logging
 import os
 import datetime
+
+from tqdm import tqdm
+
+from lib import FastaFile
+from lib import BamFile
+from lib import CsvFile
+from lib import AlignmentWorker
+from lib import AlignedSegment
+from lib import Reference
 
 def work_on_alignment(reference : Reference, alignment : AlignedSegment):
     worker = AlignmentWorker(0)
@@ -134,7 +136,7 @@ def apply_config(config):
     logging.basicConfig(filename=logfile, level=loglevel)
     
     jobs = config.jobs
-    if (jobs == None):
+    if (jobs is None):
         jobs = os.cpu_count()
     elif (jobs < 1):
         jobs = os.cpu_count()
