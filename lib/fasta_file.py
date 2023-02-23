@@ -18,26 +18,26 @@ class FastaFile:
         """
             @does initialize FastaFile
         """
-        self.path = path
-        self.index = SeqIO.index(path, "fasta")
+        self.__path = path
+        self.__index = SeqIO.index(path, "fasta")
 
     def get_reference_names(self) -> list[str]:
         """
             @returns list of reference names
         """
-        return [_ for _ in self.index]
+        return [_ for _ in self.__index]
 
     def get_reference(self, name: str) -> Reference:
         """
             @returns reference from name
         """
-        return Reference(name, self.index[name])
+        return Reference(name, self.__index[name])
 
     def __enter__(self):
         """
             @does enter for with-as
         """
-        logging.info("OPENED fastafile %s", self.path)
+        logging.info("OPENED fastafile %s", self.__path)
         return self
 
     def __exit__(self, exception_type,
@@ -45,11 +45,11 @@ class FastaFile:
         """
             @does exit for with-as
         """
-        self.index.close()
-        logging.info("CLOSED fastafile %s", self.path)
+        self.__index.close()
+        logging.info("CLOSED fastafile %s", self.__path)
 
     def __str__(self) -> str:
         """
             @does
         """
-        return f"FastaFile(path = \"{self.path}\")"
+        return f"FastaFile(path = \"{self.__path}\")"

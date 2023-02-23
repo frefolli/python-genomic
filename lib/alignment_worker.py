@@ -19,21 +19,47 @@ class AlignmentWorker:
         """
             @does initialize AlignmentWorker
         """
-        self.worker_id = worker_id
-        self.aligned_segment = None
-        self.reference = None
+        self.__worker_id = worker_id
+        self.__aligned_segment = None
+        self.__reference = None
 
+    @staticmethod
+    def reverse_complement(seq : str) -> str:
+        '''
+            @does compute R&C of the seq
+        '''
+        reverse = seq[::-1]
+        return (reverse.translate(str.maketrans('ATCG', "TAGC")))
+    
+    def get_worker_id(self):
+        """
+            @does return the worker id
+        """
+        return self.__worker_id
+    
+    def get_aligned_segment(self):
+        """
+            @does return the aligned_segment obj of the worker
+        """
+        return self.__aligned_segment
+    
+    def get_reference(self):
+        """
+            @does return the reference obj of the worker
+        """
+        return self.__reference
+    
     def set_aligned_segment(self, aligned_segment: AlignedSegment):
         """
             @does assigns aligned_segment
         """
-        self.aligned_segment = aligned_segment
+        self.__aligned_segment = aligned_segment
 
     def set_reference(self, reference: Reference):
         """
             @does assigns reference
         """
-        self.reference = reference
+        self.__reference = reference
 
     def get_cigar_tuples(self) -> list[tuple[CigarOperation, int]]:
         """
@@ -41,7 +67,7 @@ class AlignmentWorker:
         @returns Alignment.cigar_tuples
         """
         return [(CigarOperation(op[0]), op[1])
-                for op in self.aligned_segment.get_cigar_tuples()]
+                for op in self.__aligned_segment.get_cigar_tuples()]
 
     def get_intronic_site(self) -> int:
         """
@@ -54,76 +80,76 @@ class AlignmentWorker:
             intronic_site += 1
         return intronic_site
 
-    def get_first_aligned_exon_length(self) -> int:
+    def get_left_aligned_exon_length(self) -> int:
         """
             @uses Alignment.cigar_tuples
             @uses intronic_site
-            @returns first_aligned_exon_length
+            @returns left_aligned_exon_length
         """
         cigar_tuples = self.get_cigar_tuples()
         intronic_site = self.get_intronic_site()
         return sum([op[1] if op[0] in CIGAR_OPERATIONS_THAT_CONSUME_QUERY
                     else 0 for op in cigar_tuples[:intronic_site]])
 
-    def get_first_aligned_exon_range(self) -> tuple[int, int]:
+    def get_left_aligned_exon_range(self) -> tuple[int, int]:
         """
-            @uses first_aligned_exon_length
+            @uses left_aligned_exon_length
             @uses query_alignment_start
-            @returns first_aligned_exon_range
+            @returns left_aligned_exon_range
         """
-        first_aligned_exon_length = self.get_first_aligned_exon_length()
+        left_aligned_exon_length = self.get_left_aligned_exon_length()
         head_soft_clipping_length = (
-            self.aligned_segment.get_query_alignment_start())
-        return (head_soft_clipping_length, first_aligned_exon_length)
+            self.__aligned_segment.get_query_alignment_start())
+        return (head_soft_clipping_length, left_aligned_exon_length)
 
-    def get_second_aligned_exon_length(self) -> int:
+    def get_right_aligned_exon_length(self) -> int:
         """
             @uses Alignment.cigar_tuples
             @uses intronic_site
-            @returns second_aligned_exon_length
+            @returns right_aligned_exon_length
         """
         cigar_tuples = self.get_cigar_tuples()
         intronic_site = self.get_intronic_site()
         return sum([op[1] if op[0] in CIGAR_OPERATIONS_THAT_CONSUME_QUERY
                     else 0 for op in cigar_tuples[intronic_site+1:]])
 
-    def get_second_aligned_exon_range(self) -> tuple[int, int]:
+    def get_right_aligned_exon_range(self) -> tuple[int, int]:
         """
-            @uses second_aligned_exon_length
+            @uses right_aligned_exon_length
             @uses query_sequence_length
             @uses query_alignment_end
-            @returns second_aligned_exon_range
+            @returns right_aligned_exon_range
         """
-        second_aligned_exon_length = self.get_second_aligned_exon_length()
-        query_sequence_length = (
-            self.aligned_segment.get_query_sequence_length())
-        query_alignment_end = self.aligned_segment.get_query_alignment_end()
-        return (query_sequence_length - second_aligned_exon_length,
+        right_aligned_exon_length = self.get_right_aligned_exon_length()
+        query_alignment_end = self.__aligned_segment.get_query_alignment_end()
+        query_alignment_length = (
+            self.__aligned_segment.get_query_sequence_length())
+        return (query_alignment_length - right_aligned_exon_length,
                 query_alignment_end)
 
-    def get_first_aligned_exon(self):
+    def get_left_aligned_exon(self):
         """
-            @uses first_aligned_exon_range
-            @returns first_aligned_exon
+            @uses left_aligned_exon_range
+            @returns left_aligned_exon
         """
-        first_aligned_exon_range = self.get_first_aligned_exon_range()
-        return (self.aligned_segment.get_query_sequence()
-                [first_aligned_exon_range[0]:first_aligned_exon_range[1]])
+        left_aligned_exon_range = self.get_left_aligned_exon_range()
+        return (self.__aligned_segment.get_query_sequence()
+                [left_aligned_exon_range[0]:left_aligned_exon_range[1]])
 
-    def get_second_aligned_exon(self):
+    def get_right_aligned_exon(self):
         """
-            @uses second_aligned_exon_range
-            @returns second_aligned_exon
+            @uses right_aligned_exon_range
+            @returns right_aligned_exon
         """
-        second_aligned_exon_range = self.get_second_aligned_exon_range()
-        return (self.aligned_segment.get_query_sequence()
-                [second_aligned_exon_range[0]:second_aligned_exon_range[1]])
+        right_aligned_exon_range = self.get_right_aligned_exon_range()
+        return (self.__aligned_segment.get_query_sequence()
+                [right_aligned_exon_range[0]:right_aligned_exon_range[1]])
 
-    def get_first_exon_length(self) -> int:
+    def get_left_exon_length(self) -> int:
         """
             @uses Alignment.cigar_tuples
             @uses intronic_site
-            @returns first_exon_length
+            @returns left_exon_length
         """
         cigar_tuples = self.get_cigar_tuples()
         intronic_site = self.get_intronic_site()
@@ -142,15 +168,15 @@ class AlignmentWorker:
     def get_intron_range(self) -> tuple[int, int]:
         """
             @uses reference_start
-            @uses first_exon_length
+            @uses left_exon_length
             @uses intron_length
             @returns intron_range
         """
-        reference_start = self.aligned_segment.get_reference_start()
-        first_exon_length = self.get_first_exon_length()
+        reference_start = self.__aligned_segment.get_reference_start()
+        left_exon_length = self.get_left_exon_length()
         intron_length = self.get_intron_length()
-        return (reference_start + first_exon_length,
-                reference_start + first_exon_length + intron_length)
+        return (reference_start + left_exon_length,
+                reference_start + left_exon_length + intron_length)
 
     def get_intron(self) -> str:
         """
@@ -159,22 +185,31 @@ class AlignmentWorker:
             @returns intron
         """
         intron_range = self.get_intron_range()
-        is_reverse = self.aligned_segment.get_is_reverse()
-        return self.reference.get_slice(intron_range[0],
+        is_reverse = self.__aligned_segment.get_is_reverse()
+        return self.__reference.get_slice(intron_range[0],
                                         intron_range[1],
                                         is_reverse)
 
     def split_read(self) -> tuple[str, str, str]:
         """
             @uses reference
-            @uses first_aligned_exon
-            @uses second_aligned_exon
+            @uses left_aligned_exon
+            @uses right_aligned_exon
+            @uses Seq
             @uses intron
         """
-        first_aligned_exon = self.get_first_aligned_exon()
-        second_aligned_exon = self.get_second_aligned_exon()
+        left_aligned_exon = self.get_left_aligned_exon()
+        right_aligned_exon = self.get_right_aligned_exon() 
         intron = self.get_intron()
+
+        is_reverse = self.__aligned_segment.get_is_reverse()
+        
+        first_aligned_exon = (self.reverse_complement(right_aligned_exon) 
+                              if is_reverse else left_aligned_exon)
+        second_aligned_exon = (self.reverse_complement(left_aligned_exon) 
+                              if is_reverse else right_aligned_exon)
         return (first_aligned_exon, intron, second_aligned_exon)
+            
 
     def process_alignment(self) -> list:
         """"
@@ -182,12 +217,13 @@ class AlignmentWorker:
         """
         (first_aligned_exon, intron, second_aligned_exon) = self.split_read()
         return [
-            self.aligned_segment.get_read_id(),
-            self.aligned_segment.get_cigar_string(),
-            self.aligned_segment.get_query_sequence(),
-            self.reference.get_slice(
-                self.aligned_segment.get_reference_start(),
-                self.aligned_segment.get_reference_end()),
+            self.__aligned_segment.get_read_id(),
+            self.__aligned_segment.get_cigar_string(),
+            self.__aligned_segment.get_query_sequence(),
+            self.__reference.get_slice(
+                self.__aligned_segment.get_reference_start(),
+                self.__aligned_segment.get_reference_end()),
+            self.__aligned_segment.get_is_reverse(),
             first_aligned_exon,
             intron,
             second_aligned_exon,
@@ -199,5 +235,5 @@ class AlignmentWorker:
         """
             @does return string representation
         """
-        return (f"Alignment(id = {self.worker_id}, " +
-                f"alignment = {self.aligned_segment})")
+        return (f"Alignment(id = {self.__worker_id}, " +
+                f"alignment = {self.__aligned_segment})")

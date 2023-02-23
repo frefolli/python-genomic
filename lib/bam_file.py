@@ -18,16 +18,16 @@ class BamFile:
         """
             @does initialize BamFile
         """
-        self.path = path
+        self.__path = path
         pysam.index(path)
-        self.alignment_file = pysam.AlignmentFile(path, "rb")
-        self.alignment_header = self.alignment_file.header
+        self.__alignment_file = pysam.AlignmentFile(path, "rb")
+        self.__alignment_header = self.__alignment_file.header
 
     def get_alignments(self) -> Generator[pysam.AlignedSegment, None, None]:
         """
             @does returns a generator for getting all alignments
         """
-        for read in self.alignment_file.fetch():
+        for read in self.__alignment_file.fetch():
             yield read
 
     def get_alignments_matching_cigarstring(
@@ -45,7 +45,7 @@ class BamFile:
         """
             @does enter for with-as
         """
-        logging.info("OPENED bamfile %s", self.path)
+        logging.info("OPENED bamfile %s", self.__path)
         return self
 
     def __exit__(self, exception_type,
@@ -53,11 +53,11 @@ class BamFile:
         """
             @does exit for with-as
         """
-        self.alignment_file.close()
-        logging.info("CLOSED bamfile %s", self.path)
+        self.__alignment_file.close()
+        logging.info("CLOSED bamfile %s", self.__path)
 
     def __str__(self) -> str:
         """
             @returns string representation of BamFile
         """
-        return f"BamFile(path = \"{self.path}\")"
+        return f"BamFile(path = \"{self.__path}\")"

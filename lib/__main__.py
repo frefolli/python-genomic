@@ -70,6 +70,7 @@ def workflow(
                     "cigar_string",
                     "query_sequence",
                     "reference_sequence",
+                    "is_reverse",
                     "first_aligned_exon",
                     "intron",
                     "second_aligned_exon",
@@ -92,6 +93,35 @@ def workflow(
                             csvfile.add_line(result)
                             progress.update(1)
                 csvfile.save()
+    with CsvFile('reads.csv') as csvfile:
+        body = csvfile.body
+        logging.info("GOT %s alignments", len(body))
+
+        with CsvFile('output.csv') as outputfile:
+            outputfile.rebase([
+                    "id",
+                    "first_exon",
+                    "first_bases_of_intron",
+                    "last_bases_of_intron",
+                    "second_exon",
+                    "intron_is_canonic"
+                ])
+                
+            with tqdm(total=len(body),
+                          desc="saving results") as progress:
+                logging.info("OPENED tqdm")
+                for alignment in body:
+                    outputfile.add_line([
+                        alignment[0],
+                        alignment[5],
+                        alignment[6][:20],
+                        alignment[6][-20:],
+                        alignment[7],
+                        alignment[9],
+                    ])
+                    progress.update(1)
+            outputfile.save()
+            logging.info("SAVED %s formatted alignments", len(body))
     logging.info("FINISHED AT %s", datetime.datetime.now())
 
 
