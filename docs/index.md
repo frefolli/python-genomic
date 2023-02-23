@@ -22,7 +22,3 @@ Produce as output the reads spliced, that is those reads which induce an intron 
 4. the last twenty bases of intron
 
 Specify for each read its ID (aka Read Name) and if it's a canonical intron (starts with GT and ends with AG)
-
-## CLI
-
-![CLI](docs/images/CLI.png "CLI")

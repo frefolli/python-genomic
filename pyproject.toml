@@ -30,6 +30,9 @@ dependencies = [
 "Homepage" = "https://github.com/frefolli/bioinf-progetto"
 "Bug Tracker" = "https://github.com/frefolli/bioinf-progetto/issues"
 
+[project.scripts]
+genomic = "lib.__main__:command_line_interface"
+
 [tool.hatch.build]
 include = [
   "/lib/*.py",
