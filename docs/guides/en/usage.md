@@ -4,8 +4,8 @@
 
 Depending on how you installed this module, either:
 
-  - [run python module](running-python-module)
-  - [run pip package](running-pip-package)
+  - [run python module](glossary.md#running-python-module)
+  - [run pip package](glossary.md#running-pip-package)
 
 This project used as example two files, which aren't provided in repository.
 You'll have to download them by yourself if you'll want to use them:

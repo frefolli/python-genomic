@@ -1,5 +1,11 @@
 # Development Guide
 
+## Development Enviroment Setup
+
+After [cloning repository](glossary.md#cloning-repository),
+just [create a development branch](glossary.md#creating-new-branch) and
+finally [install module requirements](glossary.md#installing-module-requirements)
+
 ## Project layout
 
 | file | description |
@@ -52,4 +58,4 @@ next step is [running lints](glossary.md#running-lints)
 
 ## Running SonarQube
 
-Follow [running-sonarqube](glossary.md#running-sonarqube)
+Follow [running sonarqube](glossary.md#running-sonarqube)

@@ -16,6 +16,8 @@
 
  - Procede by [building pypi package](glossary.md#building-pypi-package).
 
+ - Finally [install pypi package](glossary.md#installing-pypi-package).
+
 ### As python module
 
  - Download source code by either
@@ -26,4 +28,4 @@
 
  - First step is [downloading release pypi package](glossary.md#downloading-release-pypi-package).
 
- - Next step is [installing pypi package](glossary.md#installing-pypi-package).
+ - Last step is [installing pypi package](glossary.md#installing-pypi-package).

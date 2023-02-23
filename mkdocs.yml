@@ -1,8 +1,46 @@
 # mkdocs.yml
 site_name: Bioinf Progetto Docs
+site_description: Documentation for BAM/FASTA intron finder
+site_author: Refolli Francesco
+site_url: https://github.com/frefolli/bioinf-progetto
+repo_name: frefolli/bioinf-progetto
+repo_url: https://github.com/frefolli/bioinf-progetto
+
+docs_dir: docs
+site_dir: site
 
 theme:
-  name: "material"
+  name: material
+  custom_dir: docs/.overrides
+  language: en
+  favicon: images/logo.png
+  icon:
+    repo: fontawesome/brands/github-alt
+    logo: icon
+  font:
+    text: Roboto
+    code: Roboto Mono
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.instant
 
 plugins:
   - mkdocstrings
@@ -11,6 +49,7 @@ nav:
   - Index: index.md
   - Guides:
     - Italiano:
+      - Glossario: guides/it/glossary.md
       - Installazione: guides/it/install.md
       - Uso: guides/it/usage.md
       - Sviluppo: guides/it/development.md

@@ -22,19 +22,3 @@ Produce as output the reads spliced, that is those reads which induce an intron 
 4. the last twenty bases of intron
 
 Specify for each read its ID (aka Read Name) and if it's a canonical intron (starts with GT and ends with AG)
-
-## CLI
-
-![CLI](images/CLI.png "CLI")
-
-### IT
-
-| file | descrizione |
-| :---: | :---------- |
-| mkdocs.yml    | file di configurazione per mkdocs |
-| docs/         | file di documentazione |
-| lib           | codice sorgente del modulo |
-| tests         | vari test sul modulo |
-| samples       | vari file semplici bam/fasta per testing e esempi |
-| sample.bam    | Allineamenti del cromosoma X della Drosophila Melanogaster |
-| BDGP6.X.fasta | DNA del cromosoma X della Drosophila Melanogaster |

@@ -7,7 +7,7 @@
 | method | command |
 | ------ | ------- |
 | https | `git clone https://github.com/frefolli/bioinf-progetto.git` |
-| ssh | `git@github.com:frefolli/bioinf-progetto.git` |
+| ssh | `git clone git@github.com:frefolli/bioinf-progetto.git` |
 | Github CLI | `gh repo clone frefolli/bioinf-progetto` |
 
 ### Downloading Release Source Code
@@ -57,19 +57,19 @@ It will install module dependency for you.
 
 Use `python -m lib -h`, you will see help screen:
 
-![Github Page Tags](../../images/running-python-module-help.png)
+![Github Page Tags](../../images/running_python_module_help.png)
 
 ### Running PyPi Package
 
 Use `genomic -h`, you will see help screen:
 
-![Github Page Tags](../../images/running-pip-package-help.png)
+![Github Page Tags](../../images/running_pip_package_help.png)
 
 ### Running Tests
 
 In order to run only tests, use `pytest`.
 
-If you wish to see coverage, `./actions.sh` gets the job done.
+If you wish to see coverage, `./actions.sh CI` gets the job done.
 
 ### Running Lints
 
@@ -85,3 +85,32 @@ With pylint:
 ### Running Sonarqube
 
 Use `./actions.sh CI` then `./actions.sh sonarqube`.
+
+### Creating New Branch
+
+Your new branch will be called `dev-{username}-{feature}`.
+Where username is your username or optionally an acronym of it,
+and feature is a short description of your contribution.
+
+First ensure you are on master.
+
+typing `git branch` should return something like:
+
+```git
+  ...
+* master
+  ...
+```
+
+If it isn't the case:
+
+  - if `git status` says that there are changes use `git stash`
+  - finally use `git checkout master`
+
+Now pull from master to ensure you are forking from the latest version of it: 
+
+use ```
+  git pull origin master
+```.
+
+Then use `git checkout -b dev-{username}-{feature}` to create the new branch.
