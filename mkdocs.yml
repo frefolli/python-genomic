@@ -1,0 +1,26 @@
+# mkdocs.yml
+site_name: Bioinf Progetto Docs
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - Index: index.md
+  - Reference:
+    - Enums:
+      - reference/enums/cigar_operation.md
+    - File Types:
+      - reference/file_types/csv_file.md
+      - reference/file_types/fasta_file.md
+      - reference/file_types/bam_file.md
+    - Sequences:
+      - reference/sequences/intron.md
+      - reference/sequences/reference.md
+      - reference/sequences/aligned_segment.md
+    - Workers:
+      - reference/workers/alignment_worker.md
+      - reference/workers/cli.md
+      - reference/workers/main.md

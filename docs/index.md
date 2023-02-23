@@ -19,7 +19,7 @@ Specify for each read its ID (aka Read Name) and if it's a canonical intron (sta
 
 ## CLI
 
-![CLI](docs/images/CLI.png "CLI")
+![CLI](images/CLI.png "CLI")
 
 ## Project layout
 
