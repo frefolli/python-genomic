@@ -147,7 +147,7 @@ def apply_config(config: argparse.Namespace):
         config.fasta,
         config.chromosome,
         config.output,
-        config.intermediate_path,
+        config.intermediate,
         config.jobs)
 
 
