@@ -9,6 +9,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 permissions:
+  contents: write
   pages: write
   id-token: write
 jobs:
@@ -97,6 +98,9 @@ jobs:
   documentation:
     needs: [build]
     name: documentation
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
