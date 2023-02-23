@@ -24,31 +24,31 @@ class AlignmentWorker:
         self.__reference = None
 
     @staticmethod
-    def reverse_complement(seq : str) -> str:
+    def reverse_complement(seq: str) -> str:
         '''
             @does compute R&C of the seq
         '''
         reverse = seq[::-1]
         return (reverse.translate(str.maketrans('ATCG', "TAGC")))
-    
+
     def get_worker_id(self):
         """
             @does return the worker id
         """
         return self.__worker_id
-    
+
     def get_aligned_segment(self):
         """
             @does return the aligned_segment obj of the worker
         """
         return self.__aligned_segment
-    
+
     def get_reference(self):
         """
             @does return the reference obj of the worker
         """
         return self.__reference
-    
+
     def set_aligned_segment(self, aligned_segment: AlignedSegment):
         """
             @does assigns aligned_segment
@@ -187,8 +187,8 @@ class AlignmentWorker:
         intron_range = self.get_intron_range()
         is_reverse = self.__aligned_segment.get_is_reverse()
         return self.__reference.get_slice(intron_range[0],
-                                        intron_range[1],
-                                        is_reverse)
+                                          intron_range[1],
+                                          is_reverse)
 
     def split_read(self) -> tuple[str, str, str]:
         """
@@ -199,17 +199,16 @@ class AlignmentWorker:
             @uses intron
         """
         left_aligned_exon = self.get_left_aligned_exon()
-        right_aligned_exon = self.get_right_aligned_exon() 
+        right_aligned_exon = self.get_right_aligned_exon()
         intron = self.get_intron()
 
         is_reverse = self.__aligned_segment.get_is_reverse()
-        
-        first_aligned_exon = (self.reverse_complement(right_aligned_exon) 
+
+        first_aligned_exon = (self.reverse_complement(right_aligned_exon)
                               if is_reverse else left_aligned_exon)
-        second_aligned_exon = (self.reverse_complement(left_aligned_exon) 
-                              if is_reverse else right_aligned_exon)
+        second_aligned_exon = (self.reverse_complement(left_aligned_exon)
+                               if is_reverse else right_aligned_exon)
         return (first_aligned_exon, intron, second_aligned_exon)
-            
 
     def process_alignment(self) -> list:
         """"

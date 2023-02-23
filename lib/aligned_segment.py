@@ -2,8 +2,9 @@
     @represents a useful abstraction for pysam.AlignedSegment
 """
 
-from lib import CigarOperation
 import pysam
+
+from lib import CigarOperation
 from lib import cigar_tuples_to_cigar_string
 from lib import CIGAR_OPERATIONS_THAT_CONSUME_QUERY
 
@@ -54,8 +55,9 @@ class AlignedSegment:
         if cigar_string is None:
             cigar_string = cigar_tuples_to_cigar_string(cigar_tuples)
         if query_sequence_length is None:
-            query_sequence_length = sum([op[1] for op in cigar_tuples 
-                if op[0] in CIGAR_OPERATIONS_THAT_CONSUME_QUERY])
+            query_sequence_length = (
+                sum([op[1] for op in cigar_tuples
+                     if op[0] in CIGAR_OPERATIONS_THAT_CONSUME_QUERY]))
         if query_alignment_start is None:
             query_alignment_start = 0
             for op in cigar_tuples:
@@ -65,8 +67,10 @@ class AlignedSegment:
                     break
         if query_alignment_end is None:
             query_alignment_end = (
-                query_sequence_length - sum([op[1] for op in cigar_tuples 
-                    if op[0] == CigarOperation.S]) + query_alignment_start)
+                query_sequence_length -
+                sum([op[1] for op in cigar_tuples
+                     if op[0] == CigarOperation.S]) +
+                query_alignment_start)
         if reference_start is None:
             reference_start = 0
         if reference_end is None:

@@ -227,7 +227,8 @@ class AlignmentGetRightExonTest(unittest.TestCase):
                 (CigarOperation.S, 2)
             ])
         alignment = craft_alignment_worker(aligned_segment)
-        self.assertEqual(11, alignment.get_aligned_segment().get_query_alignment_end())
+        self.assertEqual(11, (
+            alignment.get_aligned_segment().get_query_alignment_end()))
         self.assertEqual((5, 11), alignment.get_right_aligned_exon_range())
 
     def test_get_right_aligned_exon(self):
@@ -257,12 +258,12 @@ class AlignmentGetRightExonTest(unittest.TestCase):
             ],
             query_sequence="ACGTCCCGGCCAA")
         alignment = craft_alignment_worker(aligned_segment)
-        self.assertEqual(0, 
-            alignment.get_aligned_segment().get_query_alignment_start())
-        self.assertEqual(13, 
-            alignment.get_aligned_segment().get_query_sequence_length())
-        self.assertEqual(11, 
-            alignment.get_aligned_segment().get_query_alignment_end())
+        self.assertEqual(0, (
+            alignment.get_aligned_segment().get_query_alignment_start()))
+        self.assertEqual(13, (
+            alignment.get_aligned_segment().get_query_sequence_length()))
+        self.assertEqual(11, (
+            alignment.get_aligned_segment().get_query_alignment_end()))
         self.assertEqual("CCGGCC", alignment.get_right_aligned_exon())
 
 
@@ -453,7 +454,12 @@ class AlignmentGetIntronTest(unittest.TestCase):
         alignment = craft_alignment_worker(aligned_segment, reference)
         self.assertEqual("CCCCG", alignment.get_intron())
 
+
 class AlignmentGetPartsOnForwardStrandTest(unittest.TestCase):
+    """
+        @define test class for getting parts on forward strand
+    """
+
     def test_get_parts_from_alignment(self):
         """
             @does test
@@ -472,7 +478,7 @@ class AlignmentGetPartsOnForwardStrandTest(unittest.TestCase):
         self.assertEqual("ACGTC", first_exon)
         self.assertEqual("AAAAA", str(intron))
         self.assertEqual("CCGGCC", second_exon)
-    
+
     def test_get_parts_from_alignment_with_soft_clipping(self):
         """
             @does test
@@ -492,8 +498,8 @@ class AlignmentGetPartsOnForwardStrandTest(unittest.TestCase):
         self.assertEqual("ACGTC", first_exon)
         self.assertEqual("AAAAA", str(intron))
         self.assertEqual("CCGGCC", second_exon)
-    
-    def test_get_parts_from_alignment_with_soft_clipping(self):
+
+    def test_get_parts_from_alignment_with_soft_clipping_2(self):
         """
             @does test
         """
@@ -513,7 +519,12 @@ class AlignmentGetPartsOnForwardStrandTest(unittest.TestCase):
         self.assertEqual("AAAAA", str(intron))
         self.assertEqual("CCGGCC", second_exon)
 
+
 class AlignmentGetPartsOnReverseStrandTest(unittest.TestCase):
+    """
+        @define test class for getting parts on reverse strand
+    """
+
     def test_get_parts_from_alignment_on_reverse_strand(self):
         """
             @does test
@@ -534,7 +545,7 @@ class AlignmentGetPartsOnReverseStrandTest(unittest.TestCase):
         self.assertEqual("TTTTT", str(intron))
         self.assertEqual("GACGT", second_exon)
 
-    def test_get_parts_from_alignment_with_soft_clipping(self):
+    def test_get_parts_from_alignment_with_soft_clipping_right(self):
         """
             @does test
         """
@@ -551,11 +562,11 @@ class AlignmentGetPartsOnReverseStrandTest(unittest.TestCase):
         reference = Reference.from_name_and_sequence("X", "ACGTCAAAAACCGGCC")
         alignment = craft_alignment_worker(aligned_segment, reference)
         (first_exon, intron, second_exon) = alignment.split_read()
-        self.assertEqual("GGCCGACGT", first_exon)
+        self.assertEqual("GGCCGG", first_exon)
         self.assertEqual("TTTTT", str(intron))
-        self.assertEqual("GGCCGG", second_exon)
-    
-    def test_get_parts_from_alignment_with_soft_clipping(self):
+        self.assertEqual("GACGT", second_exon)
+
+    def test_get_parts_from_alignment_with_soft_clipping_left(self):
         """
             @does test
         """
@@ -575,4 +586,3 @@ class AlignmentGetPartsOnReverseStrandTest(unittest.TestCase):
         self.assertEqual("GGCCGG", first_exon)
         self.assertEqual("TTTTT", str(intron))
         self.assertEqual("GACGT", second_exon)
-    

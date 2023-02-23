@@ -25,7 +25,7 @@ class CsvFile:
             @does get __body value in readonly
         '''
         return self.__body
-    
+
     @property
     def header(self) -> str:
         '''
