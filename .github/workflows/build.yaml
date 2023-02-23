@@ -91,16 +91,15 @@ jobs:
           ./applicativo/genomic-*-py3-none-any.whl
           ./applicativo/genomic-*.tar.gz
 
-#  document:
-#    needs: [build]
-#    name: Deploy docs
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout main
-#        uses: actions/checkout@v2
-#
-#      - name: Deploy docs
-#        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          CONFIG_FILE: mkdocs.yml
+  document:
+    needs: [build]
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v2
+      - name: Deploy docs
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_FILE: mkdocs.yml
