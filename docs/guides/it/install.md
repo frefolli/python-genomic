@@ -1,1 +1,6 @@
-# Install Guide
+# Guida d'Installazione
+
+## Da Sorgente
+
+## Pacchetto PyPi
+

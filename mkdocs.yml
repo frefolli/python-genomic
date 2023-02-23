@@ -15,6 +15,7 @@ nav:
       - Uso: guides/it/usage.md
       - Sviluppo: guides/it/development.md
     - English:
+      - Glossary: guides/en/glossary.md
       - Install: guides/en/install.md
       - Usage: guides/en/usage.md
       - Development: guides/en/development.md
@@ -33,3 +34,7 @@ nav:
       - reference/workers/alignment_worker.md
       - reference/workers/cli.md
       - reference/workers/main.md
+
+markdown_extensions:
+    - toc:
+        permalink: "#"
