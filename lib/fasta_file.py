@@ -25,7 +25,7 @@ class FastaFile:
         """
             @returns list of reference names
         """
-        return [_ for _ in self.__index]
+        return list(self.__index)
 
     def get_reference(self, name: str) -> Reference:
         """

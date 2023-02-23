@@ -31,7 +31,7 @@ dependencies = [
 "Bug Tracker" = "https://github.com/frefolli/bioinf-progetto/issues"
 
 [project.scripts]
-genomic = "lib.__main__:command_line_interface"
+genomic = "lib.__main__:main"
 
 [tool.hatch.build]
 include = [

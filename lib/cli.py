@@ -16,7 +16,7 @@ class CLI:
             @does initialize CLI
         """
         self.__argument_parser = argparse.ArgumentParser(
-            prog="main",
+            prog="genomic",
             description=("this python module identifies " +
                          "introns and exons in reads " +
                          "when given FASTA and BAM"),
@@ -45,9 +45,16 @@ class CLI:
             help="supply chromosome name, default = 'X'")
 
         self.__argument_parser.add_argument(
-            "-o", "--output",
+            "-i", "--intermediate",
             type=str, default="reads.csv",
-            help="supply output csv file path, default = 'reads.csv'")
+            help="supply csv file path for intermediate file " +
+                 "that contains all data extracted from BAM/FASTA, " +
+                 "default = 'reads.csv'")
+
+        self.__argument_parser.add_argument(
+            "-o", "--output",
+            type=str, default="output.csv",
+            help="supply output csv file path, default = 'output.csv'")
 
         self.__argument_parser.add_argument(
             "-r", "--logfile",
@@ -84,6 +91,5 @@ class CLI:
             config.loglevel = "ERROR"
         if config.jobs is None or config.jobs < 1:
             config.jobs = os.cpu_count()
-        config.csv = config.output
 
         return config

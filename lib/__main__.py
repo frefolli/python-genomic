@@ -51,7 +51,7 @@ CIGAR_STRING_REGEX = "^([0-9]+[MIDSHP=X])*[0-9]+N([0-9]+[MIDSHP=X])*$"
 def workflow(
         bamfile_path: str, fastafile_path: str,
         reference_name: str, csvfile_path: str,
-        jobs: int):
+        intermediate_path: str, jobs: int):
     """
         @does default workflow
     """
@@ -64,7 +64,7 @@ def workflow(
             reference = fastafile.get_reference(reference_name)
 
             csvfile: CsvFile
-            with CsvFile(csvfile_path) as csvfile:
+            with CsvFile(intermediate_path) as csvfile:
                 csvfile.rebase([
                     "id",
                     "cigar_string",
@@ -93,11 +93,11 @@ def workflow(
                             csvfile.add_line(result)
                             progress.update(1)
                 csvfile.save()
-    with CsvFile('reads.csv') as csvfile:
+    with CsvFile(intermediate_path) as csvfile:
         body = csvfile.body
         logging.info("GOT %s alignments", len(body))
 
-        with CsvFile('output.csv') as outputfile:
+        with CsvFile(csvfile_path) as outputfile:
             outputfile.rebase([
                     "id",
                     "first_exon",
@@ -106,9 +106,9 @@ def workflow(
                     "second_exon",
                     "intron_is_canonic"
                 ])
-                
+
             with tqdm(total=len(body),
-                          desc="saving results") as progress:
+                      desc="saving results") as progress:
                 logging.info("OPENED tqdm")
                 for alignment in body:
                     outputfile.add_line([
@@ -146,9 +146,17 @@ def apply_config(config: argparse.Namespace):
         config.bam,
         config.fasta,
         config.chromosome,
-        config.csv,
+        config.output,
+        config.intermediate_path,
         config.jobs)
 
 
-if __name__ == "__main__":
+def main():
+    """
+        @does define entry point
+    """
     command_line_interface()
+
+
+if __name__ == "__main__":
+    main()

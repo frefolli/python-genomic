@@ -23,6 +23,10 @@ function run_main() {
     $ENV/bin/python3 -m lib
 }
 
+function run_build() {
+    $ENV/bin/python3 -m build
+}
+
 function run_sonarqube() {
     sonar-scanner
 }
@@ -30,6 +34,11 @@ function run_sonarqube() {
 function run_tests() {
     $ENV/bin/coverage run -m pytest
     $ENV/bin/coverage xml
+}
+
+function run_coverage() {
+    $ENV/bin/coverage run -m pytest
+    $ENV/bin/coverage report
 }
 
 function run_lints() {
@@ -45,6 +54,12 @@ case "$1" in
     'verify')
         verify_python_env
         ;;
+    'build')
+        run_build
+        ;;
+    'coverage')
+        run_coverage
+        ;;
     'CI')
         run_tests
         run_sonarqube
@@ -59,7 +74,7 @@ case "$1" in
         run_lints
         ;;
     *)
-        echo "Usage: $0 { run | verify | test | sonarqube | CI | lint }"
+        echo "Usage: $0 { run | verify | build | coverage | test | sonarqube | CI | lint }"
         exit 1
         ;;
 esac

@@ -69,7 +69,7 @@ Use `genomic -h`, you will see help screen:
 
 In order to run only tests, use `pytest`.
 
-If you wish to see coverage, `./actions.sh CI` gets the job done.
+If you wish to see coverage, `./actions.sh coverage` gets the job done.
 
 ### Running Lints
 
@@ -82,9 +82,11 @@ With pylint:
 
   - `pylint ./lib/*.py ./tests/*.py --exit-zero`
 
+Or directly with `./actions.sh lint`
+
 ### Running Sonarqube
 
-Use `./actions.sh CI` then `./actions.sh sonarqube`.
+Use `./actions.sh CI`.
 
 ### Creating New Branch
 
