@@ -24,8 +24,8 @@ class Reference:
         """
             @does initialize Reference
         """
-        self.name = name
-        self.sequence = sequence
+        self.__name = name
+        self.__sequence = sequence
 
     def get_slice(self,
                   start_index: int = None,
@@ -34,7 +34,7 @@ class Reference:
         """
             @returns slice of DNA and Reverse Complement is if reverse = True
         """
-        seq = self.sequence.seq
+        seq = self.__sequence.seq
         if start_index is None:
             start_index = 0
         if end_index is None:
@@ -47,5 +47,5 @@ class Reference:
         """
             @returns string representation of Reference
         """
-        return (f"Reference(name = \"{self.name}\", " +
-                f"sequence = \"{self.sequence.seq}\")")
+        return (f"Reference(name = \"{self.__name}\", " +
+                f"sequence = \"{self.__sequence.seq}\")")
