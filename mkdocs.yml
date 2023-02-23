@@ -9,6 +9,15 @@ plugins:
 
 nav:
   - Index: index.md
+  - Guides:
+    - Italiano:
+      - Installazione: guides/it/install.md
+      - Uso: guides/it/usage.md
+      - Sviluppo: guides/it/development.md
+    - English:
+      - Install: guides/en/install.md
+      - Usage: guides/en/usage.md
+      - Development: guides/en/development.md
   - Reference:
     - Enums:
       - reference/enums/cigar_operation.md
