@@ -14,7 +14,7 @@ Prendere in input un file in formato BAM che contiene gli allineamenti rispetto 
 Il progetto e' stato sviluppato da
 
 - Refolli Francesco 865955
-- Terzi Telemaco 
+- Terzi Telemaco 865981
 
 Abbiamo sviluppato una libreria (che abbiamo chiamato `genomic`) in grado di estrarre da un file BAM le reads che contengono un introne e quindi estrarre i dati su quell'introne e le relative porzioni di esoni che lo circondano nel read.
 
