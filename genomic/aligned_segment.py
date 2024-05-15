@@ -4,9 +4,9 @@
 
 import pysam
 
-from lib import CigarOperation
-from lib import cigar_tuples_to_cigar_string
-from lib import CIGAR_OPERATIONS_THAT_CONSUME_QUERY
+from genomic import CigarOperation
+from genomic import cigar_tuples_to_cigar_string
+from genomic import CIGAR_OPERATIONS_THAT_CONSUME_QUERY
 
 
 class AlignedSegment:

@@ -5,7 +5,7 @@
 import unittest
 import os
 
-from lib import CLI
+from genomic import CLI
 
 
 class CLITest(unittest.TestCase):

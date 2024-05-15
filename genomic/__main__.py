@@ -18,13 +18,13 @@ import argparse
 from tqdm import tqdm
 import pysam
 
-from lib import FastaFile
-from lib import BamFile
-from lib import CsvFile
-from lib import AlignmentWorker
-from lib import AlignedSegment
-from lib import Reference
-from lib import CLI
+from genomic import FastaFile
+from genomic import BamFile
+from genomic import CsvFile
+from genomic import AlignmentWorker
+from genomic import AlignedSegment
+from genomic import Reference
+from genomic import CLI
 
 
 def work_on_alignment(reference: Reference, alignment: pysam.AlignedSegment):

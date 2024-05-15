@@ -4,7 +4,7 @@
 
 import unittest
 
-from lib import BamFile, AlignedSegment
+from genomic import BamFile, AlignedSegment
 
 
 class BamFileTest(unittest.TestCase):

@@ -2,12 +2,12 @@
     boh
 """
 
-from lib import AlignedSegment
-from lib import Intron
-from lib import Reference
-from lib import CigarOperation
-from lib import CIGAR_OPERATIONS_THAT_CONSUME_QUERY
-from lib import CIGAR_OPERATIONS_THAT_CONSUME_REFERENCE
+from genomic import AlignedSegment
+from genomic import Intron
+from genomic import Reference
+from genomic import CigarOperation
+from genomic import CIGAR_OPERATIONS_THAT_CONSUME_QUERY
+from genomic import CIGAR_OPERATIONS_THAT_CONSUME_REFERENCE
 
 
 class AlignmentWorker:

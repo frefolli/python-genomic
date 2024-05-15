@@ -3,7 +3,7 @@
 """
 
 import unittest
-from lib import Intron
+from genomic import Intron
 
 
 class IntronTest(unittest.TestCase):

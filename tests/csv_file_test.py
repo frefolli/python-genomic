@@ -6,7 +6,7 @@ import unittest
 import tempfile
 import os
 
-from lib import CsvFile
+from genomic import CsvFile
 
 
 class CsvFileTest(unittest.TestCase):

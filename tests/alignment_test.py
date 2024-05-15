@@ -4,10 +4,10 @@
 
 import unittest
 
-from lib import AlignmentWorker
-from lib import AlignedSegment
-from lib import CigarOperation
-from lib import Reference
+from genomic import AlignmentWorker
+from genomic import AlignedSegment
+from genomic import CigarOperation
+from genomic import Reference
 
 
 def craft_alignment_worker(aligned_segment: AlignedSegment,

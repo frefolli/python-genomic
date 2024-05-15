@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "genomic"
-version = "0.0.1"
+version = "1.0.0-beta"
 license-files = { paths = ["LICENSE"] }
 authors = [
   { name="Refolli Francesco", email="frefolli@campus.unimib.it" },
@@ -31,12 +31,11 @@ dependencies = [
 "Bug Tracker" = "https://github.com/frefolli/bioinf-progetto/issues"
 
 [project.scripts]
-genomic = "lib.__main__:main"
+genomic-cli = "genomic.__main__:main"
 
 [tool.hatch.build]
 include = [
-  "/lib/*.py",
-  "/tests/*.py",
+  "/genomic/*.py",
   "/samples/bam/*.bam",
   "/samples/fasta/*.fasta",
 ]

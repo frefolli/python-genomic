@@ -4,7 +4,7 @@
 
 import unittest
 
-from lib import FastaFile
+from genomic import FastaFile
 
 
 class FastaFileTest(unittest.TestCase):

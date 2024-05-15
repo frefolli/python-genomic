@@ -1,0 +1,34 @@
+people: 
+  - name: "Francesco"
+    surname: "Refolli"
+    email: "francesco.refolli@gmail.com"
+    role: "Contributor & Maintainer"
+  - name: "Telemaco"
+    surname: "Terzi"
+    email: "tezze.terzi01@google.com"
+    role: "Contributor"
+pkgname: "python-genomic"
+pkgver: "1.0.0-beta"
+pkgrel: 1
+pkgdesc: "Given BAM and FASTA it finds introns for reads in BAM"
+license: 'GPL-3.0-or-later'
+arch:
+  - 'any'
+makedepends:
+  - 'python-build'
+  - 'python-installer'
+  - 'python-wheel'
+  - 'python-hatchling'
+depends:
+  - 'python-biopython'
+  - 'python-numpy'
+  - 'python-pysam'
+  - 'python-tqdm'
+url: "https://github.com/frefolli/python-genomic"
+archive: "https://github.com/frefolli/python-genomic/archive"
+build:
+  - "make BUILD_TYPE=release"
+package:
+  - "make DESTDIR=$pkgdir install"
+options:
+  debug: False
