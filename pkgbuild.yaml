@@ -8,7 +8,7 @@ people:
     email: "tezze.terzi01@google.com"
     role: "Contributor"
 pkgname: "python-genomic"
-pkgver: "1.0.0-beta"
+pkgver: "1.0.0"
 pkgrel: 1
 pkgdesc: "Given BAM and FASTA it finds introns for reads in BAM"
 license: 'GPL-3.0-or-later'

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "genomic"
-version = "1.0.0-beta"
+version = "1.0.0"
 license-files = { paths = ["LICENSE"] }
 authors = [
   { name="Refolli Francesco", email="frefolli@campus.unimib.it" },
